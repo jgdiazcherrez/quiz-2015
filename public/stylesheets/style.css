@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+#author img{
+  width: 200px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 86px;
+}
+
+#author iframe{
+  display: block;
+  margin: 0 auto;
+}
+
