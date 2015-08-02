@@ -28,14 +28,18 @@ var path = require("path"),
 exports.Quiz = Quiz;
 
 //Sincronizamos las definiciones que existen en el modelo '/models'
-sequelize.sync().success(function(){
-    Quiz.count().success(function(count){
+sequelize.sync().then(function(){
+    Quiz.count().then(function(count){
             if(count === 0){
                 Quiz.create({
                     pregunta: "Capital de italia",
                     respuesta: "Roma"
+                });
+                Quiz.create({
+                    pregunta: "Capital de Portugal",
+                    respuesta: "Lisboa"
                 })
-                    .success(function(){console.log("Base de datos creada")})
+                    .then(function(){console.log("Base de datos inicializada")});
             }
     });
 });
