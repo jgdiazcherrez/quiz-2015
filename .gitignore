@@ -1,1 +1,4 @@
-.idea
+.idea/
+.env
+node_modules/
+quiz.sqlite
