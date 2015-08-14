@@ -18,17 +18,30 @@ exports.load = function(req, res, next, quizId){
 };
 
 exports.index = function(req, res){
-  models.Quiz.findAll().then(
-      function(quizes){
-        res.render('quizes/index.ejs', {quizes: quizes});
-      }
-  ).catch(function(error){ next(error); });
+    var text = req.query.search;
+
+    if(!text){
+        models.Quiz.findAll().then(
+            function(quizes){
+                res.render('quizes/index.ejs', {quizes: quizes});
+            }
+        ).catch(function(error){ next(error); });
+    }
+    else{
+        text =  "%" + text + "%";
+        models.Quiz.findAll({where: ["pregunta like ?", text.replace(/\s+/g, "%")]}).then(
+            function(quizes){
+                res.render('quizes/index.ejs', {quizes:quizes});
+            }
+        )
+    }
 };
 
 exports.answer = function(req, res){
     models.Quiz.find(req.params.quizId).then(function(quiz){
         var resultado = "Incorrecto";
-        if(req.query.respuesta === quiz.respuesta)
+        //agregamos mejora de respuesta para evitar que el usuario tenga que poner la palabra exacta ... 
+        if((req.query.respuesta).toLocaleLowerCase() === (quiz.respuesta).toLowerCase())
             resultado = "Correcto";
         res.render('quizes/answer', {quiz:quiz, respuesta: resultado});
     });
