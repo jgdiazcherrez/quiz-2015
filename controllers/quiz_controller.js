@@ -29,7 +29,7 @@ exports.index = function(req, res){
     }
     else{
         text =  "%" + text + "%";
-        models.Quiz.findAll({where: ["pregunta like ?", text.replace(/\s+/g, "%")]}).then(
+        models.Quiz.findAll({where: ["LOWER(pregunta) like ?", text.replace(/\s+/g, "%")]}).then(
             function(quizes){
                 res.render('quizes/index.ejs', {quizes:quizes});
             }
@@ -40,7 +40,7 @@ exports.index = function(req, res){
 exports.answer = function(req, res){
     models.Quiz.find(req.params.quizId).then(function(quiz){
         var resultado = "Incorrecto";
-        //agregamos mejora de respuesta para evitar que el usuario tenga que poner la palabra exacta ... 
+        //agregamos mejora de respuesta para evitar que el usuario tenga que poner la palabra exacta ...
         if((req.query.respuesta).toLocaleLowerCase() === (quiz.respuesta).toLowerCase())
             resultado = "Correcto";
         res.render('quizes/answer', {quiz:quiz, respuesta: resultado});
