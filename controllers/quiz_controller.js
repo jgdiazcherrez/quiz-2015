@@ -29,7 +29,7 @@ exports.index = function(req, res){
     }
     else{
         text =  "%" + text + "%";
-        models.Quiz.findAll({where: ["LOWER(pregunta) like ?", text.replace(/\s+/g, "%")]}).then(
+        models.Quiz.findAll({where: ["LOWER(pregunta) like ?", (text.replace(/\s+/g, "%")).toLowerCase()]}).then(
             function(quizes){
                 res.render('quizes/index.ejs', {quizes:quizes});
             }
