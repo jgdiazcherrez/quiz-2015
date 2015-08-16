@@ -2,6 +2,15 @@
  * Created by jonathan on 16/08/15.
  */
 
+
+exports.loginRequired = function(req, res, next){
+  if(req.session.user){
+      next();
+  } else{
+      res.redirect('/login');
+  }
+};
+
 //login
 
 exports.new = function(req, res){
