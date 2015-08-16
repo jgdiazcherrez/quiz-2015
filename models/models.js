@@ -22,10 +22,15 @@ var path = require("path"),
         host: host,
         omitNull: true
     }),
-    Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+    Quiz = sequelize.import(path.join(__dirname, 'quiz')),
+    comment_path = path.join(__dirname, 'comments'),
+    Comment = sequelize.import(comment_path);
 
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
 
 exports.Quiz = Quiz;
+exports.Comment = Comment;
 
 //Sincronizamos las definiciones que existen en el modelo '/models'
 //TODO: QUitar el force true cuando hagamos el desplegue final

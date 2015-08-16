@@ -17,9 +17,5 @@ module.exports = function(sequelize, DataTypes){
             defaultValue: "Otro",
             allowNull: false
         }
-        /*tematica:{
-          type: DataTypes.STRING,
-          values:['tematica1','deleted','pending'], defaultValue: "otro"
-        },*/
   });
 };
