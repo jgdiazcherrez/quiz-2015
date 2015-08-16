@@ -29,7 +29,7 @@ exports.Quiz = Quiz;
 
 //Sincronizamos las definiciones que existen en el modelo '/models'
 //TODO: QUitar el force true cuando hagamos el desplegue final
-sequelize.sync().then(function(){
+sequelize.sync({force:true}).then(function(){
     Quiz.count().then(function(count){
             if(count === 0){
                 Quiz.create({
