@@ -10,6 +10,16 @@ module.exports = function(sequelize, DataTypes){
         respuesta: {
             type: DataTypes.STRING,
             validate:{notEmpty: {msg: "-> Falta la respuesta"}}
+        },
+        tematica:{
+            type: DataTypes.ENUM,
+            values:['Otro','Humanidades','Ocio', "Ciencia", "Tecnologia"],
+            defaultValue: "Otro",
+            allowNull: false
         }
+        /*tematica:{
+          type: DataTypes.STRING,
+          values:['tematica1','deleted','pending'], defaultValue: "otro"
+        },*/
   });
 };

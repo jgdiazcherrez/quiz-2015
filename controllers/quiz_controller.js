@@ -25,7 +25,7 @@ exports.index = function(req, res){
             function(quizes){
                 res.render('quizes/index.ejs', {quizes: quizes, errors:[]});
             }
-        ).catch(function(error){ next(error); });
+        ).catch(function(error){ console.log(error); });
     }
     else{
         text =  "%" + text + "%";
@@ -69,7 +69,7 @@ exports.creator = function(req, res){
                 if(err){
                     res.render('quizes/new', {quiz: quiz, errors: err.errors});
                 }else{
-                    quiz.save({fields:["pregunta", "respuesta"]}).then(function(){
+                    quiz.save({fields:["pregunta", "respuesta", "tematica"]}).then(function(){
                         res.redirect('/quizes');
                     });
                 }
@@ -86,6 +86,7 @@ exports.edit = function(req, res){
 exports.update = function(req, res){
     req.quiz.pregunta = req.body.quiz.pregunta;
     req.quiz.respuesta = req.body.quiz.respuesta;
+    req.quiz.tematica = req.body.quiz.tematica;
 
     req.quiz
         .validate()
@@ -96,7 +97,7 @@ exports.update = function(req, res){
                 }
                 else{
                     req.quiz
-                        .save({fields: ["pregunta", "respuesta"]})
+                        .save({fields: ["pregunta", "respuesta", "tematica"]})
                         .then(function(){ res.redirect('/quizes')});
                 }
             }
