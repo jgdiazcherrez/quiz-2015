@@ -34,6 +34,19 @@ app.use(function(req, res, next){
     next();
 });
 
+app.use(function(req, res, next){
+    var now = Math.floor(Date.now()/1000);
+   if(req.session.user){
+       if(req.session.ts == undefined)
+           req.session.ts = now;
+       if((now - req.session.ts) > 120){
+           delete req.session.user;
+           delete req.session.ts;
+       }
+   }
+    next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
