@@ -36,12 +36,9 @@ app.use(function(req, res, next){
 
 app.use(function(req, res, next){
     var now = new Date().getTime();
-    if(req.session.ts && (now - req.session.ts) > 120000){
+    if(req.session.user && (now - req.session.ts) > 120000)
         delete req.session.user;
-        delete req.session.ts;
-    }
-    else if(req.session.user)
-        req.session.ts = now;
+    req.session.ts = now;
     next();
 });
 
