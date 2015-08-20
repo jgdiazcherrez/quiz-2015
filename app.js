@@ -35,15 +35,13 @@ app.use(function(req, res, next){
 });
 
 app.use(function(req, res, next){
-    var now = Math.floor(Date.now()/1000);
-   if(req.session.user){
-       if(req.session.ts == undefined)
-           req.session.ts = now;
-       if((now - req.session.ts) > 120){
-           delete req.session.user;
-           delete req.session.ts;
-       }
-   }
+    var now = new Date().getTime();
+    if(req.session.ts && (now - req.session.ts) > 120000){
+        delete req.session.user;
+        delete req.session.ts;
+    }
+    else if(req.session.user)
+        req.session.ts = now;
     next();
 });
 
